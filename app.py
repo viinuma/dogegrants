@@ -5,9 +5,9 @@ import math
 import plotly.express as px
 from markupsafe import Markup
 
-# Refresh button
 if st.button("🔄 Refresh Data"):
     st.experimental_rerun()
+    st.stop()  # Prevents the rest of the app from running on the same cycle
 
 st.set_page_config(page_title="DOGE Grants Viewer", layout="wide")
 
