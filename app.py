@@ -5,11 +5,11 @@ import math
 import plotly.express as px
 from markupsafe import Markup
 
+st.set_page_config(page_title="DOGE Grants Viewer", layout="wide")
+
 if st.button("🔄 Refresh Data"):
     st.experimental_rerun()
     st.stop()  # Prevents the rest of the app from running on the same cycle
-
-st.set_page_config(page_title="DOGE Grants Viewer", layout="wide")
 
 # --- Clean illegal characters ---
 def clean_text(value):
