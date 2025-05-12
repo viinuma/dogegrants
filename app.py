@@ -7,18 +7,9 @@ from markupsafe import Markup
 
 st.set_page_config(page_title="DOGE Grants Viewer", layout="wide")
 
-# --- Refresh logic ---
-if "refresh_triggered" not in st.session_state:
-    st.session_state.refresh_triggered = False
-
-if st.session_state.refresh_triggered:
-    st.session_state.refresh_triggered = False
-    st.experimental_rerun()
-    st.stop()
-
+# ✅ Simple and stable refresh button
 if st.button("🔄 Refresh Data"):
-    st.session_state.refresh_triggered = True
-    st.experimental_rerun()
+    st.rerun()
 
 # --- Clean illegal characters ---
 def clean_text(value):
