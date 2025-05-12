@@ -5,6 +5,10 @@ import math
 import plotly.express as px
 from markupsafe import Markup
 
+# Refresh button
+if st.button("🔄 Refresh Data"):
+    st.experimental_rerun()
+
 st.set_page_config(page_title="DOGE Grants Viewer", layout="wide")
 
 # --- Clean illegal characters ---
