@@ -3,7 +3,10 @@ name: Weekly DOGE Data Fetch
 on:
   schedule:
     - cron: '0 6 * * 1'  # Every Monday at 6:00 AM UTC
-  workflow_dispatch:     # Allows manual trigger
+  workflow_dispatch:     # Manual trigger allowed
+
+permissions:
+  contents: write  # ✅ This is the fix — allows pushing back to repo
 
 jobs:
   fetch-and-commit:
