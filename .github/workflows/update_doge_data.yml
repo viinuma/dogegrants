@@ -3,10 +3,10 @@ name: Weekly DOGE Data Fetch
 on:
   schedule:
     - cron: '0 6 * * 1'  # Every Monday at 6:00 AM UTC
-  workflow_dispatch:     # Manual trigger allowed
+  workflow_dispatch:     # Allows manual trigger
 
 permissions:
-  contents: write  # ✅ This is the fix — allows pushing back to repo
+  contents: write  # ✅ Enables push access from GitHub Actions
 
 jobs:
   fetch-and-commit:
@@ -29,12 +29,18 @@ jobs:
     - name: Run fetch script
       run: python fetch_doge_data.py
 
-    - name: Commit and push updated Excel
+    - name: Commit and push updated Excel + trigger Streamlit redeploy
       run: |
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
+
+        # Stage Excel file if updated
         git add doge_full_download.xlsx || echo "Nothing to add"
+
+        # Check if anything changed
         git diff --cached --quiet && echo "🟡 No changes to commit" || (
-          git commit -m "🤖 Auto-update DOGE data"
+          echo "# touch app.py to trigger Streamlit redeploy" >> app.py
+          git add app.py
+          git commit -m "🤖 Update DOGE data and trigger redeploy"
           git push
         )
